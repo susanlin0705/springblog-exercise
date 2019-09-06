@@ -24,7 +24,7 @@ public class MathController {
     @ResponseBody
     public String subtract (@PathVariable int num1,@PathVariable int num2   ){
         int total = num2 - num1;
-        return "Subtract " + total;
+        return Long.toString(total) ;
     }
 
     @GetMapping("/multiply/{num1}/and/{num2}")
