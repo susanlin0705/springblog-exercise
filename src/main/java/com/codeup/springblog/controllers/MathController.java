@@ -2,9 +2,7 @@ package com.codeup.springblog.controllers;
 
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MathController {
@@ -14,6 +12,13 @@ public class MathController {
         int total=num1+num2;
         return "Add " + total;
     }
+
+    @RequestMapping(path = "/test/{num}", method = RequestMethod.GET)
+    @ResponseBody
+    public String number(@PathVariable int num){
+        return "this number is "+ num;
+    }
+
 
     @GetMapping("/subtract/{num1}/from/{num2}")
     @ResponseBody
