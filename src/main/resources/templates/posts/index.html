@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:replace="partials/header :: header"></th:block>
+    <th:block th:replace="partials/header :: header"/>
     <title>Index</title>
 </head>
 <body>
-    <th:block th:replace="partials/navbar :: navbar "></th:block>
+    <th:block th:replace="partials/navbar :: navbar "/>
     <h1>Welcome to my page!</h1>
+    <div th:each="post : ${posts}">
+        <h1 th:text="${post.title}"></h1>
+        <p th:text="${post.body}"></p>
+    </div>
 
     <div th:replace="partials/footer :: footer"></div>
 </body>
