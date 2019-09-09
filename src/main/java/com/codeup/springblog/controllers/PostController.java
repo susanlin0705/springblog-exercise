@@ -1,6 +1,7 @@
 package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
+import com.codeup.springblog.repos.PostRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,25 +14,49 @@ import java.util.ArrayList;
 
 @Controller
 public class PostController {
+
+    private final PostRepository postDao;
+
+    public PostController(PostRepository postRepository){
+        this.postDao = postRepository;
+    }
     @GetMapping("/posts")
     public String index(Model vModel){
-        ArrayList<Post> posts = new ArrayList<>();
-        Post dogs= new Post("Dogs", "new little puppies.");
-        Post cats = new Post("Cats", "new little kittens");
-        posts.add(dogs);
-        posts.add(cats);
-
-        vModel.addAttribute("posts",posts);
-        return "posts/index";
+       Iterable <Post> posts = postDao.findAll();
+       vModel.addAttribute("posts", posts );
+       return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
-    public String individual (@PathVariable int id, Model model){
-        Post article = new Post("My cats","MY cats are crazy" );
-        model.addAttribute("article", article);
-//        model.addAttribute("id",id);
+    public String individual(@PathVariable long id, Model vModel){
+        Post post = postDao.findOne(id);
+        vModel.addAttribute("post", post);
         return "posts/show";
     }
+
+
+
+
+
+//    @GetMapping("/posts")
+//    public String index(Model vModel){
+//        ArrayList<Post> posts = new ArrayList<>();
+//        Post dogs= new Post("Dogs", "new little puppies.");
+//        Post cats = new Post("Cats", "new little kittens");
+//        posts.add(dogs);
+//        posts.add(cats);
+//
+//        vModel.addAttribute("posts",posts);
+//        return "posts/index";
+//    }
+
+//    @GetMapping("/posts/{id}")
+//    public String individual (@PathVariable int id, Model model){
+//        Post article = new Post("My cats","MY cats are crazy" );
+//        model.addAttribute("article", article);
+////        model.addAttribute("id",id);
+//        return "posts/show";
+//    }
 
     @GetMapping("/posts/create")
     @ResponseBody

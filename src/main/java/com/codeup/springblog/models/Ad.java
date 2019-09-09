@@ -2,26 +2,26 @@ package com.codeup.springblog.models;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name="blogs")
-public class Post {
+@Entity(name = "ads")
+public class Ad {
+
     @Id @GeneratedValue
     private long id;
 
-    @Column(nullable = false , length= 100)
+    @Column(nullable = false, length = 100)
     private String title;
 
     @Column(nullable = false)
-    private String body;
+    private String description;
 
-    public Post(String title, String body, long id) {
-        this.id = id;
+
+    public Ad(String title, String description,Long id ) {
         this.title = title;
-        this.body = body;
-
+        this.description = description;
+        this.id = id;
     }
 
-    public Post() {
+    public Ad() {
     }
 
     public String getTitle() {
@@ -32,12 +32,12 @@ public class Post {
         this.title = title;
     }
 
-    public String getBody() {
-        return body;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public long getId() {

@@ -5,10 +5,15 @@
     <title>Show</title>
 </head>
 <body>
-    <h2 th:text="${id}"></h2>
+<!--    <h2 th:text="${id}"></h2>-->
     <div>
-        <h3 th:text="${article.getTitle()}"></h3>
-        <p th:text="${article.getBody()}"></p>
+        <h3 th:text="${post.getTitle()}"></h3>
+        <p th:text="${post.getBody()}"></p>
+        <form action="/post/delete" method="post">
+            <input type="hidden"  value=" th:text="${post.getId}" ">
+            <input type="submit" value="Delete">
+        </form>
+
     </div>
 </body>
 </html>
