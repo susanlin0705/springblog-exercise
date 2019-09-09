@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <th:block th:replace="partials/header :: header"></th:block>
     <title>Index</title>
 </head>
 <body>
-    <div th:replace="partials/navbar :: navbar "></div>
+    <th:block th:replace="partials/navbar :: navbar "></th:block>
     <h1>Welcome to my page!</h1>
 
     <div th:replace="partials/footer :: footer"></div>
