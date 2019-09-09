@@ -34,6 +34,17 @@ public class PostController {
         return "posts/show";
     }
 
+    @PostMapping("/posts/{id}/delete")
+    public String delete(@PathVariable long id){
+        postDao.delete(id);
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/post/{id}/create")
+    public String create(@PathVariable long id, Model vModel){
+        postDao.
+    }
+
 
 
 
@@ -69,4 +80,6 @@ public class PostController {
     public String postCreate(){
         return "Create a new post.";
     }
+
+
 }
