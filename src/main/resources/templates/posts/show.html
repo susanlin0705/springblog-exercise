@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Show</title>
 </head>
 <body>
-
+    <h2 th:text="${id}"></h2>
+    <div>
+        <h3 th:text="${article.getTitle()}"></h3>
+        <p th:text="${article.getBody()}"></p>
+    </div>
 </body>
 </html>

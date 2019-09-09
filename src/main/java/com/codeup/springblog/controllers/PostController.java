@@ -1,6 +1,8 @@
 package com.codeup.springblog.controllers;
 
+import com.codeup.springblog.models.Post;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +16,10 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}")
-    public String individual (@PathVariable int id){
+    public String individual (@PathVariable int id, Model model){
+        Post article = new Post("My cats","MY cats are crazy" );
+        model.addAttribute("article", article);
+        model.addAttribute("id",id);
         return "posts/show";
     }
 
