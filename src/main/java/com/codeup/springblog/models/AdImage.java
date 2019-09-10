@@ -22,6 +22,10 @@ public class AdImage {
         this.post = post;
     }
 
+    //always need to add a constructor
+    public AdImage() {
+    }
+
     public long getId() {
         return id;
     }
