@@ -1,6 +1,7 @@
 package com.codeup.springblog.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="blogs")
@@ -17,11 +18,15 @@ public class Post {
     @OneToOne
     private User user;
 
-    public Post(String title, String body, long id, User user) {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private List<AdImage> images;
+
+    public Post(String title, String body, long id, User user, List<AdImage>images) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.user = user;
+        this.images =images;
 
     }
     // Useful to create a new instance of the Post
@@ -58,5 +63,13 @@ public class Post {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<AdImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<AdImage> images) {
+        this.images = images;
     }
 }
