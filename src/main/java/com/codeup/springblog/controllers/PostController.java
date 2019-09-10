@@ -57,6 +57,23 @@ public class PostController {
          return "redirect:/posts";
     }
 
+    //create a form
+    @GetMapping("/posts/create")
+    public String showCreateForm(){
+        return "posts/create";
+    }
+    @PostMapping("/posts/create")
+    public String createPost(
+                             @RequestParam(name= "title") String newTitle,
+                             @RequestParam(name= "body") String newBody
+                             ){
+        Post postToCreate = new Post();
+        postToCreate.setTitle(newTitle);
+        postToCreate.setBody(newBody);
+        postDao.save(postToCreate);
+        return "redirect:/posts/";
+    }
+
 
 
 
@@ -81,17 +98,9 @@ public class PostController {
 //        return "posts/show";
 //    }
 
-    @GetMapping("/posts/create")
-    @ResponseBody
-    public String create(){
-        return "view the form for creating a post";
-    }
 
-    @PostMapping("/posts/create")
-    @ResponseBody
-    public String postCreate(){
-        return "Create a new post.";
-    }
+
+
 
 
 }
