@@ -20,7 +20,7 @@ public class Post {
         this.body = body;
 
     }
-
+    // Useful to create a new instance of the Post
     public Post() {
     }
 
