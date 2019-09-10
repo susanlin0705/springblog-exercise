@@ -1,7 +1,9 @@
 package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
+import com.codeup.springblog.models.User;
 import com.codeup.springblog.repos.PostRepository;
+import com.codeup.springblog.repos.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +15,12 @@ import java.util.ArrayList;
 public class PostController {
 
     private final PostRepository postDao;
+    private final UserRepository userDao;
 
-    public PostController(PostRepository postRepository){
+
+    public PostController(PostRepository postRepository, UserRepository userRepository){
         this.postDao = postRepository;
+        this.userDao = userRepository;
     }
     @GetMapping("/posts")
     public String index(Model vModel){
@@ -56,7 +61,7 @@ public class PostController {
          postDao.save(postUpdated);
          return "redirect:/posts";
     }
-
+    // eidt has a id bot with the create
     //create a form
     @GetMapping("/posts/create")
     public String showCreateForm(){
@@ -67,9 +72,16 @@ public class PostController {
                              @RequestParam(name= "title") String newTitle,
                              @RequestParam(name= "body") String newBody
                              ){
+        User userDB = userDao.findOne(1L);
+
+
+        //create a new post
         Post postToCreate = new Post();
         postToCreate.setTitle(newTitle);
         postToCreate.setBody(newBody);
+
+        //for user
+        postToCreate.setUser(userDB);
         postDao.save(postToCreate);
         return "redirect:/posts/";
     }
