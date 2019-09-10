@@ -9,8 +9,8 @@
     <div>
         <h3 th:text="${post.getTitle()}"></h3>
         <p th:text="${post.getBody()}"></p>
-
-
+        <a href="#" th:text="${post.user.getEmail()}"></a>
+        <a href="#" th:text="${post.user.getUsername()}"></a>
 
     </div>
 </body>

@@ -14,11 +14,15 @@ public class Ad {
     @Column(nullable = false)
     private String description;
 
+    @OneToOne
+    private User user;
 
-    public Ad(String title, String description,Long id ) {
+
+    public Ad(String title, String description,Long id, User user ) {
         this.title = title;
         this.description = description;
         this.id = id;
+        this.user= user;
     }
 
     public Ad() {
@@ -46,5 +50,13 @@ public class Ad {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

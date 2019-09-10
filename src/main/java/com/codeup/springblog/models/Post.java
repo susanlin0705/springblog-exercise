@@ -14,10 +14,14 @@ public class Post {
     @Column(nullable = false)
     private String body;
 
-    public Post(String title, String body, long id) {
+    @OneToOne
+    private User user;
+
+    public Post(String title, String body, long id, User user) {
         this.id = id;
         this.title = title;
         this.body = body;
+        this.user = user;
 
     }
     // Useful to create a new instance of the Post
@@ -46,5 +50,13 @@ public class Post {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
