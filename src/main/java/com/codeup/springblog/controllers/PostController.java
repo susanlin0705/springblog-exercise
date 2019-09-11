@@ -49,17 +49,25 @@ public class PostController {
     }
 
     @PostMapping("/posts/{id}/edit")
-    public String update(@PathVariable long id,
-                         @RequestParam(name = "title") String title,
-                         @RequestParam(name = "body") String body,
-                         Model vModel){
-
-    Post postUpdated = postDao.findOne(id);
-         postUpdated.setTitle(title);
-         postUpdated.setBody(body);
-         postDao.save(postUpdated);
+    public String update(@ModelAttribute Post post){
+         postDao.save(post);
          return "redirect:/posts";
     }
+
+//old way to write PostMapping
+//    @PostMapping("/posts/{id}/edit")
+//    public String update(
+//                         @PathVariable long id,
+//                         @RequestParam(name = "title") String title,
+//                         @RequestParam(name = "body") String body
+//                        ){
+//
+//    Post postUpdated = postDao.findOne(id);
+//         postUpdated.setTitle(title);
+//         postUpdated.setBody(body);
+//        postDao.save(postUpdated);
+//        return "redirect:/posts";
+//    }
 
     //create a form
     @GetMapping("/posts/create")
@@ -67,6 +75,13 @@ public class PostController {
         vModel.addAttribute("post", new Post());
         return "posts/create";
     }
+
+    //old way for Getmapping
+//    @GetMapping("/post/create")
+//    public String showCreateForm(){
+//        return "posts/create";
+//    }
+
     @PostMapping("/posts/create")
     public String createPost(
 //                             @RequestParam(name= "title") String newTitle,
@@ -84,6 +99,21 @@ public class PostController {
         return "redirect:/posts/";
     }
 
+    //old way for PostMapping create
+//    @PostMapping("/posts/create")
+//    public String createPost(
+//                             @RequestParam(name= "title") String newTitle,
+//                             @RequestParam(name= "body") String newBody
+//            ){
+//        User userDB = userDao.findOne(1L);
+//
+//        Post postToCreate = new Post();
+//        postToCreate.setTitle(newTitle);
+//        postToCreate.setBody(newBody);
+//        postToCreate.setUser(userDB);
+//        postDao.save(postToCreate);
+//        return "redirect:/posts/";
+//    }
 
 
 
