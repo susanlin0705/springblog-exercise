@@ -6,9 +6,11 @@
 </head>
 <body>
 
-    <form th:action="@{/posts/create}" method="post">
-        Title: <input typoe="text" name="title" />
-        Content: <input typoe="text" name="body" />
+    <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
+<!--        //old version without th:field-->
+<!--        //<input type="text" name="title">-->
+        Title: <input type="text" th:field="*{title}"/>
+        Content: <input type="text"  th:field="*{body}"/>
         <button>Create</button>
     </form>
 </body>

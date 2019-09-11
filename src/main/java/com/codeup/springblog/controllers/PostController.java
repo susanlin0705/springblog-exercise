@@ -63,22 +63,24 @@ public class PostController {
 
     //create a form
     @GetMapping("/posts/create")
-    public String showCreateForm(){
+    public String showCreateForm(Model vModel){
+        vModel.addAttribute("post", new Post());
         return "posts/create";
     }
     @PostMapping("/posts/create")
     public String createPost(
-                             @RequestParam(name= "title") String newTitle,
-                             @RequestParam(name= "body") String newBody
-                             ){
+//                             @RequestParam(name= "title") String newTitle,
+//                             @RequestParam(name= "body") String newBody
+            @ModelAttribute Post post){
         User userDB = userDao.findOne(1L);
-
-        Post postToCreate = new Post();
-        postToCreate.setTitle(newTitle);
-        postToCreate.setBody(newBody);
-
-        postToCreate.setUser(userDB);
-        postDao.save(postToCreate);
+//
+//        Post postToCreate = new Post();
+//        postToCreate.setTitle(newTitle);
+//        postToCreate.setBody(newBody);
+//
+//        postToCreate.setUser(userDB);
+        post.setUser(userDB);
+        postDao.save(post);
         return "redirect:/posts/";
     }
 
