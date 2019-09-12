@@ -1,9 +1,11 @@
 package com.codeup.springblog.controllers;
 
+import com.codeup.springblog.Services.EmailService;
 import com.codeup.springblog.models.Post;
 import com.codeup.springblog.models.User;
 import com.codeup.springblog.repos.PostRepository;
 import com.codeup.springblog.repos.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +18,20 @@ public class PostController {
 
     private final PostRepository postDao;
     private final UserRepository userDao;
+    private final EmailService emailService;
 
-    public PostController(PostRepository postRepository,UserRepository userRepository ){
+    public PostController(PostRepository postRepository,UserRepository userRepository, EmailService emailService ){
         this.postDao = postRepository;
         this.userDao = userRepository;
+        this.emailService = emailService;
     }
+
+//@Autowired
+// private PostRepository postDao;
+
+//    @Autowired
+//    private EmailService emailService;
+
     @GetMapping("/posts")
     public String index(Model vModel){
        Iterable <Post> posts = postDao.findAll();
@@ -76,7 +87,7 @@ public class PostController {
         return "posts/create";
     }
 
-    //old way for Getmapping
+    //old way for GetMapping
 //    @GetMapping("/post/create")
 //    public String showCreateForm(){
 //        return "posts/create";
@@ -84,18 +95,14 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String createPost(
-//                             @RequestParam(name= "title") String newTitle,
-//                             @RequestParam(name= "body") String newBody
             @ModelAttribute Post post){
         User userDB = userDao.findOne(1L);
-//
-//        Post postToCreate = new Post();
-//        postToCreate.setTitle(newTitle);
-//        postToCreate.setBody(newBody);
-//
-//        postToCreate.setUser(userDB);
+
         post.setUser(userDB);
-        postDao.save(post);
+        Post savePost=postDao.save(post);
+
+        emailService.prepareAndSend(savePost,"New Post",String.format("Post with the id %d has been created",savePost.getId())
+                );
         return "redirect:/posts/";
     }
 
