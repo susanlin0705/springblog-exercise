@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <body>
     <nav class="navbar" th:fragment="navbar">
@@ -8,6 +9,9 @@
             <li>Article</li>
             <li>About me</li>
             <li>Login</li>
+            <form  sec:authorize="isAuthenticated()" th:action="@{/logout}" th:method="post">
+                <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+            </form>
         </ul>
     </nav>
 
