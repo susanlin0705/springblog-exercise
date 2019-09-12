@@ -7,6 +7,7 @@
 <body>
     <th:block th:replace="partials/navbar :: navbar "/>
     <h1>Welcome to my page!</h1>
+    <img src="../../static/img/cartoon.png" alt="">
     <div th:each="post : ${posts}">
         <h1 th:text="${post.title}"></h1>
         <p th:text="${post.body}"></p>
@@ -20,5 +21,14 @@
     </div>
 
     <div th:replace="partials/footer :: footer"></div>
+
+
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
