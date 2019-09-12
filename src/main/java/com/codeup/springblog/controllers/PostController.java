@@ -6,6 +6,7 @@ import com.codeup.springblog.models.User;
 import com.codeup.springblog.repos.PostRepository;
 import com.codeup.springblog.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -96,7 +97,9 @@ public class PostController {
     @PostMapping("/posts/create")
     public String createPost(
             @ModelAttribute Post post){
-        User userDB = userDao.findOne(1L);
+        User userSession = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User userDB = userDao.findOne(userSession.getId());
 
         post.setUser(userDB);
         Post savePost=postDao.save(post);
