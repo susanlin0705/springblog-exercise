@@ -6,8 +6,9 @@
 </head>
 <body>
 <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="post" th:object="${post}">
-    Title:<input type="text" th:field="*{title}" th:value="${post.title}" />
-    Content:<input type="text" th:field="*{body}" th:value="${post.body}" />
+    Title:<input type="text" th:field="*{title}"  />
+    Content:<input type="text" th:field="*{body}"/>
+    <input type="hidden" th:field="*{user.id}"/>
     <button class="btn btn-warning">Edit</button>
 </form>
 </body>
