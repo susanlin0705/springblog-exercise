@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <th:block th:replace="partials/header :: header"/>
     <title>Edit</title>
 </head>
 <body>
-<form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="post" th:object="${post}">
-    Title:<input type="text" th:field="*{title}"  />
-    Content:<input type="text" th:field="*{body}"/>
-    <input type="hidden" th:field="*{user.id}"/>
-    <button class="btn btn-warning">Edit</button>
-</form>
+<div class="container">
+    <div class="col s12">
+        <div class="row ">
+            <h1>Edit</h1>
+            <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="post" th:object="${post}">
+                <div class="input-field">
+                    <label for="title">Title</label>
+                    <input id="title" th:field="*{title}" type="text" />
+                </div>
+                <div class="input-field">
+                    <label for="content">Content</label>
+                    <input id="content" th:field="*{body}" type="text" />
+                    <input type="hidden" th:field="*{user.id}"/>
+                </div>
+                <input type="submit" value="Edit" class="btn btn-large"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
+
 </html>

@@ -12,12 +12,12 @@
         <h1 th:text="${post.title}"></h1>
         <p th:text="${post.body}"></p>
         <img id="img" th:each="image : ${post.images}" th:src="${image.path}"/>
-        <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="GET" th:object="${post}">
-            <button>Edit</button>
-        </form>
-        <form th:action="@{'/posts/' + ${post.id} + '/delete'}" th:method="POST" th:object="${post}">
-            <button>Delete</button>
-        </form>
+<!--        <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="GET" th:object="${post}">-->
+<!--            <button>Edit</button>-->
+<!--        </form>-->
+<!--        <form th:action="@{'/posts/' + ${post.id} + '/delete'}" th:method="POST" th:object="${post}">-->
+<!--            <button>Delete</button>-->
+<!--        </form>-->
     </div>
 
     <div th:replace="partials/footer :: footer"></div>

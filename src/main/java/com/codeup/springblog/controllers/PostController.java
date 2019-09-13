@@ -6,6 +6,7 @@ import com.codeup.springblog.models.User;
 import com.codeup.springblog.repos.PostRepository;
 import com.codeup.springblog.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class PostController {
@@ -52,7 +54,7 @@ public class PostController {
     @PostMapping("/posts/{id}/delete")
     public String delete(@PathVariable long id){
         postDao.delete(id);
-        return "redirect:/posts";
+        return "redirect:/posts/myPost";
     }
 
     @GetMapping("/posts/{id}/edit")
@@ -65,7 +67,7 @@ public class PostController {
     @PostMapping("/posts/{id}/edit")
     public String update(@ModelAttribute Post post){
          postDao.save(post);
-         return "redirect:/posts";
+         return "redirect:/posts/myPost";
     }
 
 //old way to write PostMapping
@@ -108,15 +110,12 @@ public class PostController {
         }else{
 
             User userSession = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
             User userDB = userDao.findOne(userSession.getId());
-
             post.setUser(userDB);
             Post savePost=postDao.save(post);
-
             emailService.prepareAndSend(savePost,"New Post",String.format("Post with the id %d has been created",savePost.getId())
             );
-            return "redirect:/posts/"+ post.getId();
+            return "redirect:/posts/myPost";
         }
 
     }
@@ -136,6 +135,8 @@ public class PostController {
 //        postDao.save(postToCreate);
 //        return "redirect:/posts/";
 //    }
+
+
 
 
 //    @GetMapping("/posts")
