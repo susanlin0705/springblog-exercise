@@ -6,13 +6,12 @@
 </head>
 <body>
     <th:block th:replace="partials/navbar :: navbar "/>
-    <h1>Welcome to my page!</h1>
 
     <img id="homepic" th:src="@{${'/img/cartoon.png'}}" alt="cats"/>
     <div th:each="post : ${posts}">
         <h1 th:text="${post.title}"></h1>
         <p th:text="${post.body}"></p>
-        <img id="img" th:each="image : ${post.images}" th:src="${image.path}" />
+        <img id="img" th:each="image : ${post.images}" th:src="${image.path}"/>
         <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="GET" th:object="${post}">
             <button>Edit</button>
         </form>

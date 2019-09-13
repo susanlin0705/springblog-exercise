@@ -116,7 +116,7 @@ public class PostController {
 
             emailService.prepareAndSend(savePost,"New Post",String.format("Post with the id %d has been created",savePost.getId())
             );
-            return "redirect:/posts/";
+            return "redirect:/posts/"+ post.getId();
         }
 
     }
