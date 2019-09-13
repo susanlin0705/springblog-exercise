@@ -8,7 +8,9 @@
             <a href="#" class="brand-logo">My Blog</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a th:href="@{/posts}">Home</a></li>
+                <li><a th:href="@{/posts/myPost}">My Post</a></li>
                 <li><a th:href="@{/posts/create}">Create</a></li>
+                <li><a th:href="@{/sign-up}">Sign Up</a></li>
                 <li><a th:href="@{/login}">Login</a></li>
                 <li>
                     <form  sec:authorize="isAuthenticated()" th:action="@{/logout}" th:method="post">
