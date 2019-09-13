@@ -21,14 +21,16 @@
     <div class="row ">
         <div class="col s6 create">
             <div class="row">
-                <form th:action="@{/post/create}" th:method="post" th:object="${post}">
+                <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
                     <div class="input-field">
                         <label for="title">Title</label>
                         <input id="title" type="text" th:field="*{title}" />
+                        <div><p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"/></div>
                     </div>
                     <div class="input-field">
                         <label for="body">Content</label>
                         <input id="body" type="text" th:field="*{body}" />
+                        <div><p th:if="${#fields.hasErrors('body')}" th:errors="*{body}"/></div>
                     </div>
                     <input type="submit" value="Submit" class="btn btn-large"/>
                 </form>

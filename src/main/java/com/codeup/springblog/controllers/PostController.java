@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -89,24 +91,34 @@ public class PostController {
     }
 
     //old way for GetMapping
-//    @GetMapping("/post/create")
+//    @GetMapping("/posts/create")
 //    public String showCreateForm(){
 //        return "posts/create";
 //    }
 
     @PostMapping("/posts/create")
     public String createPost(
-            @ModelAttribute Post post){
-        User userSession = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            @Valid Post post,
+            Errors validation,
+            Model vModel){
+        if(validation.hasErrors()){
+            vModel.addAttribute("errors",validation);
+            vModel.addAttribute("post", post);
+            return "posts/create";
+        }else{
 
-        User userDB = userDao.findOne(userSession.getId());
+            User userSession = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        post.setUser(userDB);
-        Post savePost=postDao.save(post);
+            User userDB = userDao.findOne(userSession.getId());
 
-        emailService.prepareAndSend(savePost,"New Post",String.format("Post with the id %d has been created",savePost.getId())
-                );
-        return "redirect:/posts/";
+            post.setUser(userDB);
+            Post savePost=postDao.save(post);
+
+            emailService.prepareAndSend(savePost,"New Post",String.format("Post with the id %d has been created",savePost.getId())
+            );
+            return "redirect:/posts/";
+        }
+
     }
 
     //old way for PostMapping create
@@ -124,8 +136,6 @@ public class PostController {
 //        postDao.save(postToCreate);
 //        return "redirect:/posts/";
 //    }
-
-
 
 
 //    @GetMapping("/posts")
