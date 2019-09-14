@@ -6,12 +6,17 @@ import com.codeup.springblog.models.User;
 import com.codeup.springblog.repos.PostRepository;
 import com.codeup.springblog.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class PostController {
@@ -49,7 +54,7 @@ public class PostController {
     @PostMapping("/posts/{id}/delete")
     public String delete(@PathVariable long id){
         postDao.delete(id);
-        return "redirect:/posts";
+        return "redirect:/posts/myPost";
     }
 
     @GetMapping("/posts/{id}/edit")
@@ -62,7 +67,7 @@ public class PostController {
     @PostMapping("/posts/{id}/edit")
     public String update(@ModelAttribute Post post){
          postDao.save(post);
-         return "redirect:/posts";
+         return "redirect:/posts/myPost";
     }
 
 //old way to write PostMapping
@@ -88,22 +93,31 @@ public class PostController {
     }
 
     //old way for GetMapping
-//    @GetMapping("/post/create")
+//    @GetMapping("/posts/create")
 //    public String showCreateForm(){
 //        return "posts/create";
 //    }
 
     @PostMapping("/posts/create")
     public String createPost(
-            @ModelAttribute Post post){
-        User userDB = userDao.findOne(1L);
+            @Valid Post post,
+            Errors validation,
+            Model vModel){
+        if(validation.hasErrors()){
+            vModel.addAttribute("errors",validation);
+            vModel.addAttribute("post", post);
+            return "posts/create";
+        }else{
 
-        post.setUser(userDB);
-        Post savePost=postDao.save(post);
+            User userSession = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User userDB = userDao.findOne(userSession.getId());
+            post.setUser(userDB);
+            Post savePost=postDao.save(post);
+            emailService.prepareAndSend(savePost,"New Post",String.format("Post with the id %d has been created",savePost.getId())
+            );
+            return "redirect:/posts/myPost";
+        }
 
-        emailService.prepareAndSend(savePost,"New Post",String.format("Post with the id %d has been created",savePost.getId())
-                );
-        return "redirect:/posts/";
     }
 
     //old way for PostMapping create
@@ -124,26 +138,6 @@ public class PostController {
 
 
 
-
-//    @GetMapping("/posts")
-//    public String index(Model vModel){
-//        ArrayList<Post> posts = new ArrayList<>();
-//        Post dogs= new Post("Dogs", "new little puppies.");
-//        Post cats = new Post("Cats", "new little kittens");
-//        posts.add(dogs);
-//        posts.add(cats);
-//
-//        vModel.addAttribute("posts",posts);
-//        return "posts/index";
-//    }
-
-//    @GetMapping("/posts/{id}")
-//    public String individual (@PathVariable int id, Model model){
-//        Post article = new Post("My cats","MY cats are crazy" );
-//        model.addAttribute("article", article);
-////        model.addAttribute("id",id);
-//        return "posts/show";
-//    }
 
 
 

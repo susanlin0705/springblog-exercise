@@ -3,13 +3,15 @@
     height: 400px;
     width: 400px;
 }
-li{
-    display: inline-flex;
-    flex-wrap: wrap;
+
+
+#homepic{
+    height: 800px;
+    width: 800px;
+    margin-left: 250px;
 }
 
-h1{
-    color: purple;
+.create{
+    margin-left: 50px;
+
 }
-
-

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="partials/header :: header"/>
+    <title>My Post</title>
+</head>
+<body>
+
+    <th:block th:replace="partials/navbar :: navbar "/>
+    <div th:each="post : ${posts}">
+        <h1 th:text="${post.title}"></h1>
+        <p th:text="${post.body}"></p>
+        <img id="img" th:each="image : ${post.images}" th:src="${image.path}"/>
+        <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="GET" th:object="${post}">
+            <button>Edit</button>
+        </form>
+        <form th:action="@{'/posts/' + ${post.id} + '/delete'}" th:method="POST" th:object="${post}">
+            <button>Delete</button>
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</body>
+</html>

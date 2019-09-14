@@ -1,17 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <th:block th:replace="partials/header :: header"/>
     <title>Create</title>
 </head>
 <body>
 
-    <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
-<!--        //old version without th:field-->
-<!--        //<input type="text" name="title">-->
-        Title: <input type="text" th:field="*{title}"/>
-        Content: <input type="text"  th:field="*{body}"/>
-        <button>Create</button>
-    </form>
+<!--    <form th:action="@{/posts/create}" th:method="post" th:object="${post}">-->
+<!--&lt;!&ndash;        //old version without th:field&ndash;&gt;-->
+<!--&lt;!&ndash;        //<input type="text" name="title">&ndash;&gt;-->
+<!--        Title: <input type="text" th:field="*{title}"/>-->
+<!--        Content: <input type="text"  th:field="*{body}"/>-->
+<!--        <button>Create</button>-->
+<!--    </form>-->
+
+
+
+
+
+    <div class="container">
+        <div class="col s12 create">
+            <div class="row">
+                <h1>New Post</h1>
+                <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
+                    <div class="input-field">
+                        <label for="title">Title</label>
+                        <input id="title" type="text" th:field="*{title}" />
+                        <div><p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"/></div>
+                    </div>
+                    <div class="input-field">
+                        <label for="body">Content</label>
+                        <input id="body" type="text" th:field="*{body}" />
+                        <div><p th:if="${#fields.hasErrors('body')}" th:errors="*{body}"/></div>
+                    </div>
+                    <input type="submit" value="Submit" class="btn btn-large"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

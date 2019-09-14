@@ -9,10 +9,11 @@ public class User {
     @GeneratedValue
     private long id;
 
+    // the email and username should be unique
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -27,7 +28,7 @@ public class User {
     public User() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -58,4 +59,14 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+    //added new constructor for security
+    public User(User copy){
+        id = copy.id;
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
+
 }
