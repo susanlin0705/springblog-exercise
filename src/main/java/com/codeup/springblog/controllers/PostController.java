@@ -139,26 +139,6 @@ public class PostController {
 
 
 
-//    @GetMapping("/posts")
-//    public String index(Model vModel){
-//        ArrayList<Post> posts = new ArrayList<>();
-//        Post dogs= new Post("Dogs", "new little puppies.");
-//        Post cats = new Post("Cats", "new little kittens");
-//        posts.add(dogs);
-//        posts.add(cats);
-//
-//        vModel.addAttribute("posts",posts);
-//        return "posts/index";
-//    }
-
-//    @GetMapping("/posts/{id}")
-//    public String individual (@PathVariable int id, Model model){
-//        Post article = new Post("My cats","MY cats are crazy" );
-//        model.addAttribute("article", article);
-////        model.addAttribute("id",id);
-//        return "posts/show";
-//    }
-
 
 
 
