@@ -143,8 +143,7 @@ public class PostController {
     //json
     @GetMapping("/posts.json")
     public @ResponseBody List<Post> viewAllPostsInJSONFormat(){
-//        List<Post> elements = Lists.newArrayList( getElements() );
-        return postDao.findAll();
+        return (List<Post>) postDao.findAll();
     }
     //ajax
     @GetMapping("/posts/ajax")

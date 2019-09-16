@@ -29,11 +29,12 @@ public class User {
     private List<Post> posts;
 
 
-    public User(String username, String email, String password, List<Post>posts ) {
+    public User(Long id,String username, String email, String password) {
+        this.id= id;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.posts = posts;
+
 
     }
 
@@ -72,13 +73,6 @@ public class User {
         this.password = password;
     }
 
-    public List<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
-    }
 
     //added new constructor for security
     public User(User copy){
@@ -86,7 +80,7 @@ public class User {
         email = copy.email;
         username = copy.username;
         password = copy.password;
-        posts = copy.posts;
+
     }
 
 }

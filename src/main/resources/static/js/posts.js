@@ -9,6 +9,6 @@
             html += '<p>Published by ' + post.user.username + '</p>';
             html += '</div>';
         });
-        $('#ads').html(html);
+        $('#posts').html(html);
     });
 })(jQuery);

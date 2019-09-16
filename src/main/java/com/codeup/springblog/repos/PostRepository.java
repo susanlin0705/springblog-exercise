@@ -11,5 +11,5 @@ public interface PostRepository extends CrudRepository<Post, Long> {
 //    @Query("from blogs b where b.id like ? ")
 //    Post getPostById(long id);
     Iterable<Post> findByUser (User user);
-    List<Post> findAll();
+
 }

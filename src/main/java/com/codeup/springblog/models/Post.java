@@ -22,13 +22,9 @@ public class Post {
     @NotBlank(message = "Posts must have a description")
     private String body;
 
-
     @ManyToOne
     @JsonManagedReference
     private User user;
-
-
-
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<AdImage> images;
@@ -39,7 +35,6 @@ public class Post {
         this.body = body;
         this.user = user;
         this.images =images;
-
 
     }
     // Useful to create a new instance of the Post
@@ -85,6 +80,5 @@ public class Post {
     public void setImages(List<AdImage> images) {
         this.images = images;
     }
-
 
 }
