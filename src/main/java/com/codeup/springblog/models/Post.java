@@ -1,5 +1,6 @@
 package com.codeup.springblog.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -21,8 +22,13 @@ public class Post {
     @NotBlank(message = "Posts must have a description")
     private String body;
 
-    @OneToOne
+
+    @ManyToOne
+    @JsonManagedReference
     private User user;
+
+
+
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<AdImage> images;
@@ -33,6 +39,7 @@ public class Post {
         this.body = body;
         this.user = user;
         this.images =images;
+
 
     }
     // Useful to create a new instance of the Post
@@ -78,4 +85,6 @@ public class Post {
     public void setImages(List<AdImage> images) {
         this.images = images;
     }
+
+
 }

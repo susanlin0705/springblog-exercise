@@ -25,6 +25,7 @@ public class PostController {
     private final UserRepository userDao;
     private final EmailService emailService;
 
+
     public PostController(PostRepository postRepository,UserRepository userRepository, EmailService emailService ){
         this.postDao = postRepository;
         this.userDao = userRepository;
@@ -135,6 +136,18 @@ public class PostController {
 //        postDao.save(postToCreate);
 //        return "redirect:/posts/";
 //    }
+
+
+    //json
+    @GetMapping("/posts.json")
+    public @ResponseBody List<Post> viewAllPostsInJSONFormat() {
+        return postDao.findAll();
+    }
+    //ajax
+    @GetMapping("/posts/ajax")
+    public String viewAllPostsWithAjax() {
+        return "posts/ajax";
+    }
 
 
 

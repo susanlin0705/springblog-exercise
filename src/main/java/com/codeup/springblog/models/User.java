@@ -1,6 +1,10 @@
 package com.codeup.springblog.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="user")
@@ -17,12 +21,20 @@ public class User {
     private String email;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
-    public User(String username, String email, String password) {
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference
+    private List<Post> posts;
+
+
+    public User(String username, String email, String password, List<Post>posts ) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.posts = posts;
+
     }
 
     public User() {
@@ -60,6 +72,13 @@ public class User {
         this.password = password;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
 
     //added new constructor for security
     public User(User copy){
