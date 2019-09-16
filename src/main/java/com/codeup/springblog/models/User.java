@@ -86,6 +86,7 @@ public class User {
         email = copy.email;
         username = copy.username;
         password = copy.password;
+        posts = copy.posts;
     }
 
 }

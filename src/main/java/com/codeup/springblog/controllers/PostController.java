@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+
+
 import javax.validation.Valid;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -140,7 +142,8 @@ public class PostController {
 
     //json
     @GetMapping("/posts.json")
-    public @ResponseBody List<Post> viewAllPostsInJSONFormat() {
+    public @ResponseBody List<Post> viewAllPostsInJSONFormat(){
+//        List<Post> elements = Lists.newArrayList( getElements() );
         return postDao.findAll();
     }
     //ajax
