@@ -27,9 +27,9 @@ public class Post {
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-    private List<AdImage> images;
+    private List<PostImage> images;
 
-    public Post(String title, String body, long id, User user, List<AdImage>images) {
+    public Post(String title, String body, long id, User user, List<PostImage>images) {
         this.id = id;
         this.title = title;
         this.body = body;
@@ -73,11 +73,11 @@ public class Post {
         this.user = user;
     }
 
-    public List<AdImage> getImages() {
+    public List<PostImage> getImages() {
         return images;
     }
 
-    public void setImages(List<AdImage> images) {
+    public void setImages(List<PostImage> images) {
         this.images = images;
     }
 
