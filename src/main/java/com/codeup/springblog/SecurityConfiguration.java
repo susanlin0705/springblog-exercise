@@ -35,6 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 /* Login configuration */
+                .cors().and().csrf().disable()
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/posts") // user's home page, it can be any URL

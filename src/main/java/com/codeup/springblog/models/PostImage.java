@@ -1,10 +1,12 @@
 package com.codeup.springblog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name="post_image")
-public class AdImage {
+public class PostImage {
     @Id
     @GeneratedValue
     private long id;
@@ -14,16 +16,22 @@ public class AdImage {
 
     @ManyToOne
     @JoinColumn(name= "post_id")
+    @JsonIgnore
     private Post post;
 
-    public AdImage(long id,String path, Post post) {
+    public PostImage(long id, String path, Post post) {
         this.id = id;
         this.path = path;
         this.post = post;
     }
 
+    public PostImage(String path, Post post) {
+        this.path = path;
+        this.post = post;
+    }
+
     //always need to add a constructor
-    public AdImage() {
+    public PostImage() {
     }
 
     public long getId() {

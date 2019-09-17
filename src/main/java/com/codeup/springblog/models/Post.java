@@ -1,5 +1,6 @@
 package com.codeup.springblog.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -21,13 +22,14 @@ public class Post {
     @NotBlank(message = "Posts must have a description")
     private String body;
 
-    @OneToOne
+    @ManyToOne
+    @JsonManagedReference
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-    private List<AdImage> images;
+    private List<PostImage> images;
 
-    public Post(String title, String body, long id, User user, List<AdImage>images) {
+    public Post(String title, String body, long id, User user, List<PostImage>images) {
         this.id = id;
         this.title = title;
         this.body = body;
@@ -71,11 +73,12 @@ public class Post {
         this.user = user;
     }
 
-    public List<AdImage> getImages() {
+    public List<PostImage> getImages() {
         return images;
     }
 
-    public void setImages(List<AdImage> images) {
+    public void setImages(List<PostImage> images) {
         this.images = images;
     }
+
 }

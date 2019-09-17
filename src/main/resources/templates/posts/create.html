@@ -22,7 +22,7 @@
         <div class="col s12 create">
             <div class="row">
                 <h1>New Post</h1>
-                <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
+                <form th:action="@{/posts/create}" th:method="post" enctype="multipart/form-data" th:object="${post}">
                     <div class="input-field">
                         <label for="title">Title</label>
                         <input id="title" type="text" th:field="*{title}" />
@@ -33,7 +33,13 @@
                         <input id="body" type="text" th:field="*{body}" />
                         <div><p th:if="${#fields.hasErrors('body')}" th:errors="*{body}"/></div>
                     </div>
-                    <input type="submit" value="Submit" class="btn btn-large"/>
+                    <div>
+
+                    </div>
+
+                    <label for="file">Upload a file!</label>
+                    <input id="file" name="file" type="file" />
+                    <input type="submit" value="upload" />
                 </form>
             </div>
         </div>
