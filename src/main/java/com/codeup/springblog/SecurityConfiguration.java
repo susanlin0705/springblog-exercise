@@ -57,6 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/posts/{id}/edit"// only authenticated users can edit ads
                 )
                 .authenticated()
+
         ;
     }
 }

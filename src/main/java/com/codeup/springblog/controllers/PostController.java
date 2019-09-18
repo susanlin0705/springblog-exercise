@@ -104,8 +104,13 @@ public class PostController {
 //    public String showCreateForm(){
 //        return "posts/create";
 //    }
-    @Value("/springblog/src/main/resources/static/Uploads")
+    @Value("${file-upload-path}")
     private String uploadPath;
+
+    @Value("/Uploads")
+    private String filePath;
+
+
     @PostMapping("/posts/create")
     public String createPost( @RequestParam(name = "file") MultipartFile uploadedFile,
             @Valid Post post,
@@ -129,7 +134,8 @@ public class PostController {
             try {
                 uploadedFile.transferTo(destinationFile);
 
-                PostImage file = new PostImage(destinationFile.getAbsolutePath(),savePost);
+                String Imagepath= Paths.get(filePath,filename).toString();
+                PostImage file = new PostImage(Imagepath,savePost);
                 // save to database
                 uploadDao.save(file);
                 vModel.addAttribute("message", "File successfully uploaded!");
